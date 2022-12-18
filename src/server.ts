@@ -1,6 +1,11 @@
+import { app } from "./http";
 import { Client } from "discord.js";
 import { askQuestion } from "./eden";
 const bot = new Client({ intents: [1,512,32768] });
+
+
+app.listen(3000, () => console.log("Server running!"));
+bot.once("ready", () => console.log("Bot online!"));
 
 
 bot.on("messageCreate", async(ctx): Promise<any> => {
@@ -13,7 +18,6 @@ bot.on("messageCreate", async(ctx): Promise<any> => {
   if(message.startsWith("//")) {
     try { ctx.reply(await askQuestion(messageWithoutPrefix)) }
     catch { ctx.reply("Sei não man") } 
-    return;
   }
   
 

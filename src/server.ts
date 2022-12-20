@@ -1,5 +1,5 @@
 import { app } from "./http";
-import { Client } from "discord.js";
+import { Client, EmbedBuilder } from "discord.js";
 import { askQuestion } from "./eden";
 const bot = new Client({ intents: [1,512,32768] });
 
@@ -16,8 +16,18 @@ bot.on("messageCreate", async(ctx): Promise<any> => {
 
 
   if(message.startsWith("//")) {
-    try { ctx.reply(await askQuestion(messageWithoutPrefix)) }
-    catch { ctx.reply("Sei não man") } 
+    const embed = new EmbedBuilder()
+      .setColor("#e91e63")
+      .setTimestamp()
+      .setAuthor({
+        name: ctx.author.username,
+        iconURL: ctx.author.avatarURL()
+      });
+
+    try { embed.setDescription(await askQuestion(messageWithoutPrefix)) }
+    catch { embed.setDescription("Sei não man") }
+
+    return ctx.channel.send({embeds:[embed]});
   }
   
 
@@ -28,4 +38,4 @@ bot.on("messageCreate", async(ctx): Promise<any> => {
 });
 
 
-bot.login("M$TAyNjU1NjUzODc5OTc4NDAyOA.GsbFYL.o9u9p4Nod6NpC0e5YT1AR1SzSnMkA7FjilhvfQ");
+bot.login("MTAyNjU1NjUzODc5OTc4NDAyOA.GsbFYL.o9u9p4Nod6NpC0e5YT1AR1SzSnMkA7FjilhvfQ");

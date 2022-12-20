@@ -15,7 +15,7 @@ export async function askQuestion(question:string) {
       temperature: 0,
       max_tokens: 4000
     }, {
-      timeout: 30 * 1000
+      timeout: 15 * 1000
     });
 
     return response.data.choices[0].text;

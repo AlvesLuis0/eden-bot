@@ -1,17 +1,20 @@
 import express from "express";
+import { status } from "./entity/Status";
 
 
 const app = express();
-const date = new Date();
-date.setHours(date.getHours() - 3);
 
 
 app.get("/", (req, res) => {
-  const ping = new Date();
-  ping.setHours(ping.getHours() - 3);
-  res.status(200);
-	res.send(`Init at ${date.getHours()}:${date.getMinutes()}<br>
- 	Last Ping at ${ping.getHours()}:${ping.getMinutes()}`);
+  status.addPing();
+
+  let page = status.getInit();
+  for(const i of status.getPing())
+    page += `<br>${i}`;
+
+  res
+    .status(200)
+    .send(page);
 });
 
 export { app };

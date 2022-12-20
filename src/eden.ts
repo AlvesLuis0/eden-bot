@@ -22,6 +22,6 @@ export async function askQuestion(question:string) {
   }
 
   catch(error) {
-    return "Error: " + error.response.data.error.message;
+    return `Error: ${error.response.data.error.message}`;
   }
 }

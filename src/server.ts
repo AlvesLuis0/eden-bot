@@ -27,7 +27,7 @@ bot.on("messageCreate", async(ctx): Promise<any> => {
     try { embed.setDescription(await askQuestion(messageWithoutPrefix)) }
     catch { embed.setDescription("Sei não man") }
 
-    return ctx.channel.send({embeds:[embed]});
+    ctx.channel.send({embeds:[embed]});
   }
   
 

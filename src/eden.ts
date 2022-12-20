@@ -12,7 +12,7 @@ export async function askQuestion(question:string) {
     const response = await eden.createCompletion({
       model: "text-davinci-002",
       prompt: question,
-      temperature: 0,
+      temperature: 0.9,
       max_tokens: 4000
     }, {
       timeout: 15 * 1000

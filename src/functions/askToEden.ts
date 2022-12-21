@@ -1,4 +1,6 @@
+import { Message } from "discord.js";
 import { Configuration, OpenAIApi } from "openai";
+import { myEmbed } from ".";
 
 
 const config = new Configuration({
@@ -7,7 +9,9 @@ const config = new Configuration({
 const eden = new OpenAIApi(config);
 
 
-export async function askQuestion(question:string) {
+export async function askToEden(ctx:Message<boolean>, question:string) {
+  const embed = myEmbed(ctx);
+
   try {
     const response = await eden.createCompletion({
       model: "text-davinci-002",
@@ -15,13 +19,13 @@ export async function askQuestion(question:string) {
       temperature: 0.9,
       max_tokens: 4000
     }, {
-      timeout: 15 * 1000
+      timeout: 20 * 1000
     });
 
-    return response.data.choices[0].text;
+    return embed.setDescription(response.data.choices[0].text);
   }
 
   catch(error) {
-    return `Error: ${error.response.data.error.message}`;
+    return embed.setDescription(`Error: ${error.response.data.error.message}`);
   }
 }

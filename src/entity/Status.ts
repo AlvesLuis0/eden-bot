@@ -22,7 +22,7 @@ class Status {
     const hour = date.getHours();
     const mins = date.getMinutes();
 
-    return `${month}/${day} at ${hour}:${mins > 9 ? mins : `0${mins}`}`;
+    return `At ${hour}:${mins > 9 ? mins : `0${mins}`} on ${month}/${day}`;
   }
 
 

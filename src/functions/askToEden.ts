@@ -16,16 +16,17 @@ export async function askToEden(ctx:Message<boolean>, question:string) {
     const response = await eden.createCompletion({
       model: "text-davinci-002",
       prompt: question,
-      temperature: 0.9,
+      temperature: 0,
       max_tokens: 4000
     }, {
-      timeout: 20 * 1000
+      timeout: 30 * 1000
     });
 
     return embed.setDescription(response.data.choices[0].text);
   }
 
   catch(error) {
-    return embed.setDescription(`Error: ${error.response.data.error.message}`);
+    if(error.response) return embed.setDescription(`Error: ${error.response.data.error.message}`);
+    return embed.setDescription(error.message);
   }
 }
